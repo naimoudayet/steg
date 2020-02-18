@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}.:: S.T.E.G | Entreprise ::.
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-6">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="/">Accueil</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="/entreprise/">Liste des entreprises</a>
+						</li>
+						<li class="breadcrumb-item" aria-current="page">
+							Représentation
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="container">
+				<div class="jumbotron jumbotron-fluid">
+					<div class="container">
+						<h1 class="display-4">{{ entreprise.getNomEnt() }}</h1>
+						<p class="lead">
+							<i class="fas fa-user-tie"></i>
+							{{ entreprise.getResponsable() }}</p>
+						<p class="lead">
+							<i class="fas fa-at"></i>
+							{{ entreprise.getEmail() }}</p>
+						<p class="lead">
+							<i class="fas fa-phone"></i>
+							{{ entreprise.getNumTel() }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

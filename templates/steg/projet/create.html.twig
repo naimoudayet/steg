@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}.:: S.T.E.G | Projet ::.
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-4">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="/">Accueil</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="/projet/">Liste des projets</a>
+						</li>
+						<li class="breadcrumb-item" aria-current="page">
+							Créer
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			<div class="container">
+				<form action="/projet/store" method="POST">
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<label for="nom_du_projet">Nom du projet</label>
+								<input type="text" name="nom_du_projet" id="nom_du_projet" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label for="date_debut">Date début des travaux</label>
+								<input type="date" name="date_debut" id="date_debut" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label for="date_fin">Date de fin des travaux (estimation)</label>
+								<input type="date" name="date_fin" id="date_fin" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label for="budget">Budget (en dinars)</label>
+								<input type="number" name="budget" id="budget" class="form-control" required>
+							</div>
+
+
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<label for="description">Description</label>
+								<textarea name="description" id="description" cols="30" rows="12" class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-5">
+						<div class="col-3"></div>
+						<div class="col-3">
+							<a href="/projet/" class="btn btn-danger btn-block">
+								<i class="fas fa-times mr-1"></i>Annuler
+							</a>
+						</div>
+						<div class="col-3">
+							<button type="submit" class="btn btn-success btn-block">
+								<i class="fas fa-check mr-1"></i>Valider</button>
+						</div>
+						<div class="col-3"></div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

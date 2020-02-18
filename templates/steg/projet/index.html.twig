@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}.:: S.T.E.G | Projet ::.
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-4">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="/">Accueil</a>
+						</li>
+						<li class="breadcrumb-item" aria-current="page">
+							Liste des projets
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-8 text-right">
+				<a href="/projet/create" class="btn btn-success">
+					<i class="fas fa-plus mr-1"></i>Ajouter Projet</a>
+			</div>
+
+			<div class="container">
+				<table class="table table-striped mt-5" id="projets">
+					<thead>
+						<th>Nom du projet</th>
+						<th>Date début</th>
+						<th>Date fin</th>
+						<th>Budget (DNT)</th>
+						<th class="text-center">Actions</th>
+					</thead>
+					<tbody>
+						{% if projets %}
+							{% for projet in projets %}
+								<tr>
+									<td>{{ projet.getNomProjet() }}</td>
+									<td>{{ projet.getDateDebut().format('Y-m-d') }}</td>
+									<td>{{ projet.getDateFin().format('Y-m-d') }}</td>
+									<td>{{ projet.getBudget() }}</td>
+									<td class="text-center">
+										<a href="/projet/show/{{ projet.getId() }}" class="btn btn-primary">
+											<i class="fas fa-eye"></i>
+											Show</a>
+										<a href="/projet/edit/{{ projet.getId() }}" class="btn btn-info">
+											<i class="fas fa-pen"></i>
+											Edit</a>
+										<a href="#" class="btn btn-danger delete-projet" data-id="{{ projet.getId() }}">
+											<i class="fas fa-trash"></i>
+											Delete</a>
+									</td>
+								</tr>
+							{% endfor %}
+						{% else %}
+							<tr colspan="5">
+								<p>Aucun projet</p>
+							</tr>
+						{% endif %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="/js/projet.js"></script>
+{% endblock %}

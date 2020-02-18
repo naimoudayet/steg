@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}.:: S.T.E.G | Entreprise ::.
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-6">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="/">Accueil</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="/projet/">Liste des projets</a>
+						</li>
+						<li class="breadcrumb-item" aria-current="page">
+							Représentation
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="container">
+				<div class="jumbotron jumbotron-fluid">
+					<div class="container">
+						<h1 class="display-4">{{ projet.getNomProjet() }}</h1>
+						<p class="lead">
+							<i class="fas fa-calendar-week"></i>
+							{{ projet.getDateDebut().format('Y-m-d') }}</p>
+						<p class="lead">
+							<i class="fas fa-calendar-week"></i>
+							{{ projet.getDateFin().format('Y-m-d') }}</p>
+						<p class="lead">
+							<i class="fas fa-coins"></i>
+							{{ projet.getBudget() }}</p>
+						<p class="lead">
+							<i class="fas fa-comment-alt"></i>
+							{{ projet.getDescription() }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
