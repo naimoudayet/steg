@@ -78,7 +78,7 @@ class EntrepriseController extends AbstractController
     }
 
     /**
-     * @Route("/update", name="store_entreprise", methods={"POST"})
+     * @Route("/update", name="update_entreprise", methods={"POST"})
      */
     public function update(Request $request)
     {
@@ -124,7 +124,7 @@ class EntrepriseController extends AbstractController
     }
 
     /**
-     * @Route("/destroy/{id}", name="delete_p", methods={"DELETE"})
+     * @Route("/destroy/{id}", name="delete_entreprise", methods={"DELETE"})
      */
     public function destroy(Request $request, $id)
     {
@@ -137,5 +137,25 @@ class EntrepriseController extends AbstractController
 
         $response = new Response();
         $response->send();
+    }
+
+    /**
+     * @Route("/search", name="search_entreprise")
+     */
+    public function search(Request $request)
+    {
+        if ($request->getMethod() == Request::METHOD_POST) {
+
+            $keyword = $request->request->get('keyword');
+
+            $entrepriseRepository = $this->getDoctrine()->getRepository(Entreprise::class);
+
+            $entreprises = $entrepriseRepository->findByKeyword($keyword);
+
+            return $this->render('steg/entreprise/search.html.twig', array(
+                'entreprises' => $entreprises
+            ));
+        }
+        return $this->redirectToRoute('entreprise_list');
     }
 }

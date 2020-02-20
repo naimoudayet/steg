@@ -19,6 +19,23 @@ class ProjetRepository extends ServiceEntityRepository
         parent::__construct($registry, Projet::class);
     }
 
+    public function findByKeyword($keyword): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            '
+            SELECT p
+            FROM App\Entity\Projet p
+            WHERE p.nom_projet LIKE :keyword 
+             OR p.description LIKE :keyword 
+             OR p.budget LIKE :keyword  
+            '
+        )->setParameter('keyword', '%' . $keyword . '%');
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Projet[] Returns an array of Projet objects
     //  */

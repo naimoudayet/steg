@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +37,16 @@ class Entreprise
      * @ORM\Column(type="text", length=20)
      */
     private $num_tel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="entreprise")
+     */
+    private $projets;
+
+    public function __construct()
+    {
+        $this->projets = new ArrayCollection();
+    }
 
 
     public function getId()
@@ -80,5 +92,36 @@ class Entreprise
     public function setNumTel($num_tel)
     {
         $this->num_tel = $num_tel;
+    }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getProjets(): Collection
+    {
+        return $this->projets;
+    }
+
+    public function addProjet(Projet $projet): self
+    {
+        if (!$this->projets->contains($projet)) {
+            $this->projets[] = $projet;
+            $projet->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjet(Projet $projet): self
+    {
+        if ($this->projets->contains($projet)) {
+            $this->projets->removeElement($projet);
+            // set the owning side to null (unless already changed)
+            if ($projet->getEntreprise() === $this) {
+                $projet->setEntreprise(null);
+            }
+        }
+
+        return $this;
     }
 }

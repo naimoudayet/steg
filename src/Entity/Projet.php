@@ -41,6 +41,12 @@ class Projet
      */
     private $budget;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Entreprise", inversedBy="projets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $entreprise;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,5 +99,17 @@ class Projet
     public function setBudget($budget)
     {
         $this->budget = $budget;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?Entreprise $entreprise): self
+    {
+        $this->entreprise = $entreprise;
+
+        return $this;
     }
 }

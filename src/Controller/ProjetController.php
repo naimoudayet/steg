@@ -73,7 +73,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="edit_entreprise")
+     * @Route("/edit/{id}", name="edit_projet")
      */
     public function edit($id)
     {
@@ -86,7 +86,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/update", name="store_entreprise", methods={"POST"})
+     * @Route("/update", name="update_projet", methods={"POST"})
      */
     public function update(Request $request)
     {
@@ -150,5 +150,25 @@ class ProjetController extends AbstractController
 
         $response = new Response();
         $response->send();
+    }
+
+    /**
+     * @Route("/search", name="search_projet")
+     */
+    public function search(Request $request)
+    {
+        if ($request->getMethod() == Request::METHOD_POST) {
+
+            $keyword = $request->request->get('keyword');
+
+            $projetRepository = $this->getDoctrine()->getRepository(Projet::class);
+
+            $projets = $projetRepository->findByKeyword($keyword);
+
+            return $this->render('steg/projet/search.html.twig', array(
+                'projets' => $projets
+            ));
+        }
+        return $this->redirectToRoute('projet_list');
     }
 }
