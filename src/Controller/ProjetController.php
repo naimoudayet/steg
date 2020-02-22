@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Entreprise;
 use App\Entity\Projet;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,10 @@ class ProjetController extends AbstractController
      */
     public function create()
     {
-        return $this->render('steg/projet/create.html.twig');
+        $entreprises = $this->getDoctrine()->getRepository(Entreprise::class)->findall();
+        return $this->render('steg/projet/create.html.twig', array(
+            'entreprises' => $entreprises
+        ));
     }
 
     /**
@@ -43,23 +47,21 @@ class ProjetController extends AbstractController
         if ($request->getMethod() == Request::METHOD_POST) {
             $projet = new Projet();
 
+            $id = $request->request->get('entreprise');
             $nom_du_projet = $request->request->get('nom_du_projet');
-            $date_debut_s = $request->request->get('date_debut');
-            $date_fin_s =  $request->request->get('date_fin');
+            $date_debut = $request->request->get('date_debut');
+            $date_fin =  $request->request->get('date_fin');
             $budget = $request->request->get('budget');
             $description = $request->request->get('description');
 
-            //$date_debut = date('Y-m-d', strtotime($date_debut_s));
-            //$date_fin = date('Y-m-d', strtotime($date_fin_s));
-
-            $date_debut = date_create_from_format('Y-m-d', $date_debut_s);
-            $date_fin = date_create_from_format('Y-m-d', $date_fin_s);
+            $entreprise = $this->getDoctrine()->getRepository(Entreprise::class)->find($id);
 
             $projet->setNomProjet($nom_du_projet);
-            $projet->setDateDebut($date_debut->getTimestamp());
-            $projet->setDateFin($date_fin->getTimestamp());
+            $projet->setDateDebut($date_debut);
+            $projet->setDateFin($date_fin);
             $projet->setBudget($budget);
             $projet->setDescription($description);
+            $projet->setEntreprise($entreprise);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($projet);
@@ -80,8 +82,11 @@ class ProjetController extends AbstractController
         $projet = new Projet();
         $projet = $this->getDoctrine()->getRepository(Projet::class)->find($id);
 
+        $entreprises = $this->getDoctrine()->getRepository(Entreprise::class)->findall();
+
         return $this->render('steg/projet/edit.html.twig', array(
-            'projet' => $projet
+            'projet' => $projet,
+            'entreprises' => $entreprises
         ));
     }
 
@@ -95,23 +100,23 @@ class ProjetController extends AbstractController
             $projet = new Projet();
 
             $id = $request->request->get('ent_id');
+            $ide = $request->request->get('entreprise');
 
             $projet = $this->getDoctrine()->getRepository(Projet::class)->find($id);
+            $entreprise = $this->getDoctrine()->getRepository(Entreprise::class)->find($ide);
 
             $nom_du_projet = $request->request->get('nom_du_projet');
-            $date_debut_s = $request->request->get('date_debut');
-            $date_fin_s =  $request->request->get('date_fin');
+            $date_debut = $request->request->get('date_debut');
+            $date_fin =  $request->request->get('date_fin');
             $budget = $request->request->get('budget');
             $description = $request->request->get('description');
-
-            $date_debut = strtotime($date_debut_s);
-            $date_fin = strtotime($date_fin_s);
-
+ 
             $projet->setNomProjet($nom_du_projet);
             $projet->setDateDebut($date_debut);
             $projet->setDateFin($date_fin);
             $projet->setBudget($budget);
             $projet->setDescription($description);
+            $projet->setEntreprise($entreprise);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();

@@ -27,12 +27,12 @@ class Projet
     private $description;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="text")
      */
     private $date_debut;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="text")
      */
     private $date_fin;
 

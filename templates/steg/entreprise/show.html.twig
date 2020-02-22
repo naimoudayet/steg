@@ -23,18 +23,59 @@
 				</nav>
 			</div>
 			<div class="container">
-				<div class="jumbotron jumbotron-fluid">
-					<div class="container">
-						<h1 class="display-4">{{ entreprise.getNomEnt() }}</h1>
-						<p class="lead">
-							<i class="fas fa-user-tie"></i>
-							{{ entreprise.getResponsable() }}</p>
-						<p class="lead">
-							<i class="fas fa-at"></i>
-							{{ entreprise.getEmail() }}</p>
-						<p class="lead">
-							<i class="fas fa-phone"></i>
-							{{ entreprise.getNumTel() }}</p>
+				<div class="row mt-5">
+					<div class="col-4">
+						<div class="card">
+							<img class="card-img-top" src="https://picsum.photos/200/100/?blur" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">{{ entreprise.getNomEnt() }}</h5>
+							</div>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<i class="fas fa-user-tie mr-5"></i>
+									{{ entreprise.getNomEnt() }}</li>
+								<li class="list-group-item">
+									<i class="fas fa-at mr-5"></i>
+									{{ entreprise.getEmail() }}</li>
+								<li class="list-group-item">
+									<i class="fas fa-phone mr-5"></i>
+									{{ entreprise.getNumTel() }}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-8">
+						<table class="table table-striped" id="projets">
+							<thead>
+								<th>Nom du projet</th>
+								<th>Date début</th>
+								<th>Date fin</th>
+								<th>Budget (DNT)</th>
+								<th class="text-center">Actions</th>
+							</thead>
+							<tbody>
+								{% set total = 0 %}
+								{% if projets %}
+									{% for projet in projets %}
+										{% set total = total + projet.getBudget() %}
+										<tr>
+											<td>{{ projet.getNomProjet() }}</td>
+											<td>{{ projet.getDateDebut() }}</td>
+											<td>{{ projet.getDateFin() }}</td>
+											<td>{{ projet.getBudget() }}</td>
+											<td class="text-center">
+												<a href="/projet/show/{{ projet.getId() }}" class="btn btn-primary">
+													<i class="fas fa-eye"></i>
+													Show</a>
+											</td>
+										</tr>
+									{% endfor %}
+								{% endif %}
+								<tr>
+									<td colspan="3">Budget totale (DNT):</td>
+									<td>{{ total }}</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

@@ -23,21 +23,46 @@
 				</nav>
 			</div>
 			<div class="container">
-				<div class="jumbotron jumbotron-fluid">
-					<div class="container">
-						<h1 class="display-4">{{ projet.getNomProjet() }}</h1>
-						<p class="lead">
-							<i class="fas fa-calendar-week"></i>
-							{{ projet.getDateDebut().format('Y-m-d') }}</p>
-						<p class="lead">
-							<i class="fas fa-calendar-week"></i>
-							{{ projet.getDateFin().format('Y-m-d') }}</p>
-						<p class="lead">
-							<i class="fas fa-coins"></i>
-							{{ projet.getBudget() }}</p>
-						<p class="lead">
-							<i class="fas fa-comment-alt"></i>
-							{{ projet.getDescription() }}</p>
+				<div class="row mt-5">
+					<div class="col-6">
+						<div class="card">
+							<img class="card-img-top" src="https://picsum.photos/200/100/?blur" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">{{ projet.getNomProjet() }}</h5>
+								<p class="card-text">{{ projet.getDescription() }}</p>
+							</div>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<i class="fas fa-calendar-week mr-5"></i>
+									{{ projet.getDateDebut() }}</li>
+								<li class="list-group-item">
+									<i class="fas fa-calendar-week mr-5"></i>
+									{{ projet.getDateFin() }}</li>
+								<li class="list-group-item">
+									<i class="fas fa-coins mr-5"></i>
+									{{ projet.getBudget() }}
+									DNT</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="card">
+							<img class="card-img-top" src="https://picsum.photos/200/100/?blur" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">{{ projet.getEntreprise().getNomEnt() }}</h5>
+							</div>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<i class="fas fa-user-tie mr-5"></i>
+									{{ projet.getEntreprise().getNomEnt() }}</li>
+								<li class="list-group-item">
+									<i class="fas fa-at mr-5"></i>
+									{{ projet.getEntreprise().getEmail() }}</li>
+								<li class="list-group-item">
+									<i class="fas fa-phone mr-5"></i>
+									{{ projet.getEntreprise().getNumTel() }}</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>

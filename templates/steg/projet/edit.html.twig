@@ -28,30 +28,36 @@
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
+								<label for="entreprise">Entreprise</label>
+								<select class="form-control" id="entreprise" name="entreprise">
+									{% for entreprise in entreprises %}
+										<option value="{{ entreprise.getId() }}" {% if entreprise.getId() == projet.getEntreprise().getId() %} selected {% endif %}>
+											{{ entreprise.getNomEnt() }}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<input type="hidden" name="ent_id" value="{{ projet.getId() }}">
+							<div class="form-group">
 								<label for="nom_du_projet">Nom du projet</label>
 								<input value="{{ projet.getNomProjet() }}" type="text" name="nom_du_projet" id="nom_du_projet" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label for="date_debut">Date début des travaux</label>
-								<input value="{{ projet.getDateDebut().format('Y-m-d') }}" type="date" name="date_debut" id="date_debut" class="form-control" required>
+								<input value="{{ projet.getDateDebut() }}" type="date" name="date_debut" id="date_debut" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label for="date_fin">Date de fin des travaux (estimation)</label>
-								<input value="{{ projet.getDateFin().format('Y-m-d') }}" type="date" name="date_fin" id="date_fin" class="form-control" required>
+								<input value="{{ projet.getDateFin() }}" type="date" name="date_fin" id="date_fin" class="form-control" required>
 							</div>
 							<div class="form-group">
-								<label for="title">Budget (en dinars)</label>
-								<input value="{{ projet.getBudget() }}" type="number" name="title" id="title" class="form-control" required>
+								<label for="budget">Budget (en dinars)</label>
+								<input value="{{ projet.getBudget() }}" type="number" name="budget" id="budget" class="form-control" required>
 							</div>
-
-
 						</div>
 						<div class="col-6">
 							<div class="form-group">
 								<label for="description">Description</label>
-								<textarea name="description" id="description" cols="30" rows="12" class="form-control">
-									{{ projet.getDescription() }}
-								</textarea>
+								<textarea name="description" id="description" cols="30" rows="16" class="form-control">{{ projet.getDescription() }}</textarea>
 							</div>
 						</div>
 					</div>

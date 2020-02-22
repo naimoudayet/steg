@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Entreprise;
+use App\Entity\Projet;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -118,8 +119,12 @@ class EntrepriseController extends AbstractController
         $entreprise = new Entreprise();
         $entreprise = $this->getDoctrine()->getRepository(Entreprise::class)->find($id);
 
+        $projets = new Projet();
+        $projets = $this->getDoctrine()->getRepository(Projet::class)->findAll();
+
         return $this->render('steg/entreprise/show.html.twig', array(
-            'entreprise' => $entreprise
+            'entreprise' => $entreprise,
+            'projets' => $projets
         ));
     }
 

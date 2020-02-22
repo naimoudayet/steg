@@ -17,7 +17,7 @@
 					</li>
 				</ol>
 			</nav>
-			<div class="row">
+			<div class="row mt-5">
 				<div class="col-8">
 					<form action="/projet/search" method="POST" class="form-inline">
 						<div class="form-group mx-sm-3 mb-2">
@@ -47,13 +47,14 @@
 							<th class="text-center">Actions</th>
 						</thead>
 						<tbody>
-
+							{% set total = 0 %}
 							{% for projet in projets %}
+								{% set total = total + projet.getBudget() %}
 								<tr>
 									<td>{{ projet.getNomProjet() }}</td>
 									<td>{{ projet.getEntreprise().getResponsable() }}</td>
-									<td>{{ projet.getDateDebut().format('Y-m-d') }}</td>
-									<td>{{ projet.getDateFin().format('Y-m-d') }}</td>
+									<td>{{ projet.getDateDebut() }}</td>
+									<td>{{ projet.getDateFin() }}</td>
 									<td>{{ projet.getBudget() }}</td>
 									<td class="text-center">
 										<a href="/projet/show/{{ projet.getId() }}" class="btn btn-primary">
@@ -68,7 +69,10 @@
 									</td>
 								</tr>
 							{% endfor %}
-
+							<tr>
+								<td colspan="4">Budget totale (DNT):</td>
+								<td>{{ total }}</td>
+							</tr>
 						</tbody>
 					</table>
 				{% else %}

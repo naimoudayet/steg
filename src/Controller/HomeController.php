@@ -14,7 +14,8 @@ class HomeController extends AbstractController
      */
     public function home_page()
     {
-        return $this->render('steg/index.html.twig');
+        //return $this->render('steg/index.html.twig');
+        return $this->redirectToRoute('projet_list');
     }
 
     /**
@@ -22,9 +23,7 @@ class HomeController extends AbstractController
      */
     public function login_page()
     {
-        return $this->render('steg/login.html.twig', array(
-            'error' => ''
-        ));
+        return $this->render('steg/login.html.twig');
     }
 
     /**
@@ -51,9 +50,8 @@ class HomeController extends AbstractController
             if ($result) {
                 return $this->redirectToRoute('home_page');
             } else {
-                return $this->redirectToRoute('login_page', array(
-                    'error' => 'svp, vérifiez vos coordonnées'
-                ));
+                $this->addFlash('error','svp, vérifiez vos coordonées');
+                return $this->redirectToRoute('login_page');
             }
         }
 
